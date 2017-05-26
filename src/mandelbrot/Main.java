@@ -1,6 +1,7 @@
 package mandelbrot;
 
-
+import java.util.concurrent.*;
+import java.util.concurrent.Executors.*;
 
 /**
  * Main class in the Mandelbrot project.  This will eventually, begin threads to
@@ -13,11 +14,15 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+    	
+    	System.out.println("Rodei !!");
+    	
         // The number of threads to use.  We will use 4 because I have a
         // Quad-core processor.  (Intel i5)
         int numThreads = 4;
         // The threads used in this program
-        Thread[] threads = new Thread[numThreads];
+        //Thread[] threads = new Thread[numThreads];
+        ExecutorService executor = Executors.newFixedThreadPool(numThreads);
         // The number of pictures per thread
         int picsPerThread = 3;
         // The names of the files will be mbrot1, mbrot2, etc.
@@ -48,22 +53,26 @@ public class Main {
                 resolution += 1000;
             }
             // Create a new thread with the appropriate array as the parameter.
-            threads[a] = new Thread(new MandelbrotRenderer(mbrots, color,
-                    maxIterations));
+            //threads[a] = new Thread(new MandelbrotRenderer(mbrots, color, maxIterations));
+            executor.execute(new Thread(new MandelbrotRenderer(mbrots, color, maxIterations)));
         }
 
-        // Start the threads
-        for (Thread t : threads) {
-            t.start();
-        }
-
-        // Join the threads
-        for (Thread t : threads) {
-            try {
-                t.join();
-            }
-            catch (Exception e) {}
-        }
+//        // Start the threads
+//        for (Thread t : threads) {
+//            t.start();
+//        }
+//
+//        // Join the threads
+//        for (Thread t : threads) {
+//            try {
+//                t.join();
+//            }
+//            catch (Exception e) {}
+//        }
+        
+        
+        
+        
     }
 
 }
