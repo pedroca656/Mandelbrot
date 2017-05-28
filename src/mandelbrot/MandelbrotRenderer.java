@@ -32,6 +32,19 @@ public class MandelbrotRenderer implements Runnable {
 
     private ColorScheme color;
 
+    private String ThreadName = "Defaul";
+    public MandelbrotRenderer(MbrotParameter[] imgs, ColorScheme color, 
+            int maxIterations, String threadName) {
+        
+    	this(imgs, color, maxIterations);
+    	
+    	ThreadName = threadName;
+    	
+    	System.out.println(ThreadName + " Criada.");
+    	
+    }
+
+    
     /**
      * This class needs a list of parameters to iterate over, this is taken as
      * an array of MbrotParameters.
@@ -49,6 +62,9 @@ public class MandelbrotRenderer implements Runnable {
      * This class will be used as a thread, so we must use run() to do our work.
      */
     public void run() {
+    	
+    	System.out.println("run " + ThreadName);
+    	
         int iteration, point;
         double a, b, aOld, x, y;
         int[] colorPalette = new int[maxIterations];
@@ -112,6 +128,9 @@ public class MandelbrotRenderer implements Runnable {
             }
             catch (Exception e) {
                 System.out.println("Oops.");
+            }
+            finally {
+            	System.out.println("run " + ThreadName + " finally");
             }
         }
     }

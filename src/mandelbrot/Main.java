@@ -54,7 +54,7 @@ public class Main {
             }
             // Create a new thread with the appropriate array as the parameter.
             //threads[a] = new Thread(new MandelbrotRenderer(mbrots, color, maxIterations));
-            executor.execute(new Thread(new MandelbrotRenderer(mbrots, color, maxIterations)));
+            executor.execute(new Thread(new MandelbrotRenderer(mbrots, color, maxIterations,"Thread " + a)));
         }
 
 //        // Start the threads
